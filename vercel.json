@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/wine-recommendation.ts": {
+      "api/wine-recommendation.js": {
         "maxDuration": 10
       }
     }
