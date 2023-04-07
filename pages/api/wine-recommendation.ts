@@ -37,7 +37,7 @@ const preferences = req.body.preferences;
       method: 'POST',
       headers,
       body: JSON.stringify({
-        model: 'ada',
+        model: 'text-davinci-003',
         prompt: basePrompt,
         temperature: 0,
         max_tokens: 550
