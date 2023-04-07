@@ -1,0 +1,8 @@
+{
+    "functions": {
+      "api/wine-recommendation.ts": {
+        "maxDuration": 30
+      }
+    }
+  }
+  
