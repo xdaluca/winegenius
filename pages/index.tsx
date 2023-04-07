@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import styles from '../styles/Home.module.css';
 
 const WineRecommendationApp = () => {
   const [preferences, setPreferences] = useState('');
@@ -23,34 +24,38 @@ const WineRecommendationApp = () => {
   };
 
   return (
-    <div>
-      <h1>Wine Recommendation App</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="preferences">Enter your preferences:</label>
-        <input
-          type="text"
-          id="preferences"
-          value={preferences}
-          onChange={(e) => setPreferences(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Get Recommendations'}
-        </button>
-      </form>
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <span className={styles.grapeIcon}>🍇</span>
+        <h1 className={styles.title}>Wine Recommendation App</h1>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="preferences" className={styles.label}>Enter your preferences:</label>
+          <input
+            type="text"
+            id="preferences"
+            value={preferences}
+            onChange={(e) => setPreferences(e.target.value)}
+            required
+            className={styles.input}
+          />
+          <button type="submit" disabled={loading} className={styles.button}>
+            {loading ? 'Loading...' : 'Get Recommendations'}
+          </button>
+        </form>
 
-      {error && <p>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      {recommendations.length > 0 && (
-        <>
-          <h2>Wine Recommendations</h2>
-          <ul>
-            {recommendations.map((recommendation, index) => (
-              <li key={index}>{recommendation}</li>
-            ))}
-          </ul>
-        </>
-      )}
+        {recommendations.length > 0 && (
+          <>
+            <h2 className={styles.recommendationsTitle}>Wine Recommendations</h2>
+            <ul className={styles.recommendationsList}>
+              {recommendations.map((recommendation, index) => (
+                <li key={index} className={styles.recommendationItem}>{recommendation}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </main>
     </div>
   );
 };
