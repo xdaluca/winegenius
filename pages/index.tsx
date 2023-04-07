@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css';
 
 const WineRecommendationApp = () => {
   const [preferences, setPreferences] = useState('');
+  const [dish, setDish] = useState(''); // New state for dish input
   const [recommendations, setRecommendations] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -14,7 +15,7 @@ const WineRecommendationApp = () => {
     setError('');
 
     try {
-      const response = await axios.post('/api/wine-recommendation', { preferences });
+      const response = await axios.post('/api/wine-recommendation', { preferences, dish }); // Include dish in the request
       setRecommendations(response.data.recommendations.split('\n'));
     } catch (err) {
       setError('An error occurred while fetching recommendations. Please try again.');
@@ -29,19 +30,28 @@ const WineRecommendationApp = () => {
         <span className={styles.grapeIcon}>🍇</span>
         <h1 className={styles.title}>Wine Recommendation App</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <label htmlFor="preferences" className={styles.label}>Enter your preferences:</label>
-          <input
-            type="text"
-            id="preferences"
-            value={preferences}
-            onChange={(e) => setPreferences(e.target.value)}
-            required
-            className={styles.input}
-          />
-          <button type="submit" disabled={loading} className={styles.button}>
-            {loading ? 'Loading...' : 'Get Recommendations'}
-          </button>
-        </form>
+        <label htmlFor="preferences" className={styles.label}>Enter your preferences:</label>
+        <input
+          type="text"
+          id="preferences"
+          value={preferences}
+          onChange={(e) => setPreferences(e.target.value)}
+          required
+          className={styles.input}
+        />
+        <label htmlFor="dish" className={styles.label}>Enter a dish to pair with:</label>
+        <input
+          type="text"
+          id="dish"
+          value={dish}
+          onChange={(e) => setDish(e.target.value)}
+          required
+          className={styles.input}
+        />
+        <button type="submit" disabled={loading} className={styles.button}>
+          {loading ? 'Loading...' : 'Get Recommendations'}
+        </button>
+      </form>
 
         {error && <p className={styles.error}>{error}</p>}
 
