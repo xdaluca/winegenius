@@ -1,6 +1,6 @@
 .container {
   padding: 0 2rem;
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,8 +21,8 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
-  font-weight: 300;
-  color: #333;
+  font-weight: 400;
+  color: #444;
 }
 
 .form {
@@ -36,7 +36,7 @@
 .label {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #444;
 }
 
 .input {
@@ -78,8 +78,8 @@
 
 .recommendationsTitle {
   margin-top: 3rem;
-  font-weight: 300;
-  color: #333;
+  font-weight: 400;
+  color: #444;
 }
 
 .recommendationsList {
@@ -93,9 +93,9 @@
   padding: 1rem;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
-  color: #333;
+  color: #444;
 }
 
 @media (max-width: 600px) {
@@ -103,15 +103,56 @@
     font-size: 3rem;
   }
 }
-.grapeIcon {
-  font-size: 6rem;
-  color: #832161;
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 600px) {
+  
   .grapeIcon {
-    font-size: 4rem;
+    font-size: 6rem !important;
+    color: #832161;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 600px) {
+    .grapeIcon {
+      font-size: 4rem !important;
+    }
+  /* Additional styles to enhance the design */
+  
+  /* Add smooth transition for input fields and buttons */
+.input, .button {
+  transition: all 0.3s ease;
+}
+  
+  /* Add hover effect to input fields */
+.input:hover {
+  border-color: #0070f3;
+  box-shadow: 0 0 0 1px rgba(0, 112, 243, 0.2);
+}
+  
+  /* Improve the spacing for form elements */
+  .form {
+    margin-top: 3rem;
+  }
+  
+  .label {
+    margin-bottom: 0.25rem;
+  }
+  
+  .input {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Add a subtle hover effect to recommendation items */
+  .recommendationItem:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+  
+  /* Add smooth transition to recommendation items */
+  .recommendationItem {
+    transition: all 0.3s ease;
+  }
+  
+  /* Improve the spacing for recommendations */
+  .recommendationsList {
+    margin-top: 1.5rem;
   }
 }
-
