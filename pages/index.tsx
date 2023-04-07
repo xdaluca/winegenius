@@ -4,8 +4,11 @@ import styles from '../styles/Home.module.css';
 
 const WineRecommendationApp = () => {
   const [preferences, setPreferences] = useState('');
-  const [dish, setDish] = useState(''); // New state for dish input
-  const [recommendations, setRecommendations] = useState<string[]>([]);
+  const [dish, setDish] = useState('');
+  const [budget, setBudget] = useState('');
+  const [region, setRegion] = useState('');
+  const [grapeVariety, setGrapeVariety] = useState('');
+  const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -15,14 +18,15 @@ const WineRecommendationApp = () => {
     setError('');
 
     try {
-      const response = await axios.post('/api/wine-recommendation', { preferences, dish }); // Include dish in the request
-      setRecommendations(response.data.recommendations.split('\n'));
+      const response = await axios.post('/api/wine-recommendation', { preferences, dish, budget, region, grapeVariety });
+      const parsedRecommendations = response.data.recommendations;
+      setRecommendations(parsedRecommendations);
     } catch (err) {
       setError('An error occurred while fetching recommendations. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   return (
     <div className={styles.container}>
@@ -45,7 +49,32 @@ const WineRecommendationApp = () => {
           id="dish"
           value={dish}
           onChange={(e) => setDish(e.target.value)}
+          className={styles.input}
+        />
+        <label htmlFor="budget" className={styles.label}>Budget:</label>
+        <input
+          type="text"
+          id="budget"
+          value={budget}
+          onChange={(e) => setBudget(e.target.value)}
           required
+          className={styles.input}
+        />
+        <label htmlFor="region" className={styles.label}>Region:</label>
+        <input
+          type="text"
+          id="region"
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
+          required
+          className={styles.input}
+        />
+        <label htmlFor="grapeVariety" className={styles.label}>Grape variety:</label>
+        <input
+          type="text"
+          id="grapeVariety"
+          value={grapeVariety}
+          onChange={(e) => setGrapeVariety(e.target.value)}
           className={styles.input}
         />
         <button type="submit" disabled={loading} className={styles.button}>
@@ -60,7 +89,23 @@ const WineRecommendationApp = () => {
             <h2 className={styles.recommendationsTitle}>Wine Recommendations</h2>
             <ul className={styles.recommendationsList}>
               {recommendations.map((recommendation, index) => (
-                <li key={index} className={styles.recommendationItem}>{recommendation}</li>
+                <li key={index} className={styles.recommendationItem}>
+                  <div>
+                    <strong>Wine Name:</strong> {recommendation.wineName}
+                  </div>
+                  <div>
+                    <strong>Region:</strong> {recommendation.region}
+                  </div>
+                  <div>
+                    <strong>Price Range:</strong> {recommendation.priceRange}
+                  </div>
+                  <div>
+                    <strong>Grape Variety:</strong> {recommendation.grapeVariety}
+                  </div>
+                  <div>
+                    <strong>Description:</strong> {recommendation.description}
+                  </div>
+                </li>
               ))}
             </ul>
           </>
