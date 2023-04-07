@@ -1,13 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Recommendation } from '../../types/types';
 
 type Data = {
   message: string,
   wineRecommendationPrompt: any,
-  recommendations: any,
+  recommendations: Recommendations[],
 };
 
 type Error = {
   message: string,
+};
+
+type Recommendations = {
+  wineName: string;
+  region: string;
+  priceRange: string;
+  grapeVariety: string;
+  description: string;
 };
 
 const GPT_KEY = process.env.GPT_API_KEY;
@@ -48,7 +57,7 @@ export default async function handler(
     const rawRecommendations = await response.json();
     const wineRecommendations = rawRecommendations.choices[0].text.split('\n');
     
-    const processedRecommendations = wineRecommendations
+    const processedRecommendations: Recommendation[] = wineRecommendations
     .map((rec: string) => {
       const [wineName, region, priceRange, grapeVariety, description] = rec.split(';');
       return {
@@ -59,7 +68,7 @@ export default async function handler(
         description: description?.trim(),
       };
     })
-    .filter((rec: any) => rec.wineName && rec.region && rec.priceRange && rec.grapeVariety && rec.description)
+    .filter((rec: Recommendation) => rec.wineName && rec.region && rec.priceRange && rec.grapeVariety && rec.description)
     .slice(0, 5);
     
     res.status(200).json({

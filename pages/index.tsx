@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/Home.module.css';
+import { Recommendation } from '../types/types';
 
 const WineRecommendationApp = () => {
   const [preferences, setPreferences] = useState('');
@@ -8,7 +9,7 @@ const WineRecommendationApp = () => {
   const [budget, setBudget] = useState('');
   const [region, setRegion] = useState('');
   const [grapeVariety, setGrapeVariety] = useState('');
-  const [recommendations, setRecommendations] = useState([]);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
